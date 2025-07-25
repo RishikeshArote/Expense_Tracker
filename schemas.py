@@ -2,7 +2,7 @@ from pydantic import BaseModel,EmailStr,Field
 #========================================================================================================================
 #schema for user registratin input
 class UserCreate(BaseModel):
-    name:str       = Field(...,example="Rishikesh Arote")
+    username:str   = Field(...,example="Rishikesh Arote")
     email:EmailStr = Field(...,example="rishiarote2020@gmail")
     password:str   = Field(...,example="rishikesh")
 #========================================================================================================================
@@ -14,7 +14,7 @@ class UserLogin(BaseModel):
 #schema for showing user data(response model)
 class UserResponse(BaseModel):
     id:int
-    name:str
+    username:str
     email:EmailStr
     
     class Config:

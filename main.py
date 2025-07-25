@@ -50,26 +50,37 @@ def register_user(
                     name     : str     = Form(...),
                     email    : str     = Form(...),
                     password : str     = Form(...),
+                    confirm_password: str = Form(...),
                     db       : Session = Depends(get_db)
                  ):
+    
+    
+    existing_username = db.query(User).filter(User.username == name).first()
+    if existing_username:
+        return templates.TemplateResponse("register.html", {
+        "request": request,
+        "error": "Username already taken. Please choose another.",
+        "name": name,
+        "email": email
+    })
+
     # Check if email is already registered
     existing_user = db.query(User).filter(User.email == email).first()
 
     if existing_user:
-        return templates.TemplateResponse("register.html", {
-                                                            "request": request,
-                                                            "error": "Email already registered. Please log in or use a different one",
-                                                            "name": name,
-                                                            "email": email
-                                                            })
-
-
+        return templates.TemplateResponse("register.html", {"request": request,"error":"Email already registered.Please log in or use a different one","name": name,"email": email})
+     
+    #  Step 3: Check if passwords match
+    if password != confirm_password:
+        return templates.TemplateResponse("register.html", {"request": request,"error"  : "Passwords do not match.","name"   : name,"email"  : email})
+ 
     # Hash the password
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     # Store the hashed password
     user = User(username=name, email=email, password=hashed_password.decode('utf-8'))
    
+
     db.add(user)
     db.commit()
     db.refresh(user)

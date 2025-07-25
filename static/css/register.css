@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient( #08fff7);
+    background: linear-gradient( #a4a9a8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@ body {
 }
 
 .form-container {
-    background-color: #6acc6f;
+    background-color: #9ae19e;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(230, 70, 70, 0.2);
