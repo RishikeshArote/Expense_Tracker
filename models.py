@@ -3,7 +3,7 @@ from sqlalchemy import Column,Integer,String,Float,ForeignKey
 from sqlalchemy.orm import relationship
 
 from database import Base
-#===================================================================================
+#======================================================================================================================================
 # User Table
 class User(Base):
     __tablename__ = "users"
@@ -14,9 +14,8 @@ class User(Base):
     password = Column(String(100), nullable=False)
 
     expenses = relationship("Expense", back_populates="owner")
-# ==========================
+# =======================================================================================================================================
 # Expense Table
-# ==========================
 class Expense(Base):
     __tablename__ = "expenses"
 

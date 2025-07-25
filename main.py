@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import bcrypt
 from sqlalchemy.orm import Session
+
 from models import User
 
 import models,schemas,auth
@@ -47,60 +48,64 @@ def register_page(request:Request):
 @app.post("/register",response_class=HTMLResponse)
 def register_user(
                     request:Request,
-                    name     : str     = Form(...),
-                    email    : str     = Form(...),
-                    password : str     = Form(...),
-                    confirm_password: str = Form(...),
-                    db       : Session = Depends(get_db)
+                    name             : str     = Form(...),
+                    email            : str     = Form(...),
+                    password         : str     = Form(...),
+                    confirm_password : str     = Form(...),
+                    db               : Session = Depends(get_db)
                  ):
     
-    
+    # Check if user name is already registered
     existing_username = db.query(User).filter(User.username == name).first()
+    
     if existing_username:
-        return templates.TemplateResponse("register.html", {
-        "request": request,
-        "error": "Username already taken. Please choose another.",
-        "name": name,
-        "email": email
-    })
-
+        return templates.TemplateResponse("register.html", {"request": request,
+                                                            "error": "Username already taken. Please choose another.",
+                                                            "name": name,
+                                                            "email": email
+                                                          })
+#======================================================================================================================================
     # Check if email is already registered
     existing_user = db.query(User).filter(User.email == email).first()
 
     if existing_user:
-        return templates.TemplateResponse("register.html", {"request": request,"error":"Email already registered.Please log in or use a different one","name": name,"email": email})
-     
+        return templates.TemplateResponse("register.html", {"request": request,
+                                                            "error"  :"Email already registered.Please log in or use a different one","name": name,
+                                                            "email"  : email
+                                                            })
+#======================================================================================================================================
     #  Step 3: Check if passwords match
     if password != confirm_password:
-        return templates.TemplateResponse("register.html", {"request": request,"error"  : "Passwords do not match.","name"   : name,"email"  : email})
- 
+        return templates.TemplateResponse("register.html", {"request": request,
+                                                            "error"  : "Passwords do not match.",
+                                                            "name"   : name,
+                                                            "email" : email})
+#======================================================================================================================================
     # Hash the password
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
+#======================================================================================================================================
     # Store the hashed password
     user = User(username=name, email=email, password=hashed_password.decode('utf-8'))
-   
-
+#======================================================================================================================================
     db.add(user)
     db.commit()
     db.refresh(user)
 
-    return templates.TemplateResponse("login.html", {"request": request})
-#======================================================================================================================
+    return templates.TemplateResponse("login.html", {"request" : request})
+#======================================================================================================================================
 #Login Handler (Post)
 @app.post("/login",response_class=HTMLResponse)
-def login_user(
-                request:Request,
-                email    : str     = Form(...),
-                password : str     = Form(...),
-                db       : Session = Depends(get_db)
-               ):
-    user = db.query(User).filter(User.email == email).first()
+def login_user(request:Request,
+               email    : str     = Form(...),
+               password : str     = Form(...),
+               db       : Session = Depends(get_db)):
     
+    user = db.query(User).filter(User.email == email).first()
+#======================================================================================================================================
     if not user or not bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
         return templates.TemplateResponse("login.html", { "request": request,
                                                           "error": " Invalid email or password"
-                                                        } )
+                                                        })
    
-    return templates.TemplateResponse("dashboard.html",{"request":request})
-#======================================================================================================================
+    return templates.TemplateResponse("dashboard.html",{"request" : request})
+#======================================================================================================================================
