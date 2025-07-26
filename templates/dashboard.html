@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory - Staff Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/responive.css"> -->
+        <link rel="stylesheet" href="{{ url_for('static', path='css/dashboard.css') }}">
+
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <div class="brand-logo">DET</div>
+            <span class="brand-name">Digital Expense Tracker</span>
+        </div>
+        <div class="user-menu">
+            <form action="http://127.0.0.1:8000/" method="get">
+                <button class="logout-btn" style="background-color: var(); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; align-items: center; gap: 8px; font-size: 1rem">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="menu-item active" id="home">
+              <!-- <a href="http://127.0.0.1:8000/dashboard"> -->
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Home</span>
+              <!-- </a> -->
+            </li>
+            <form></form>
+            <li class="menu-item" id="definebudget">
+              <a href="http://127.0.0.1:8000/define_buget">
+                <i class="fas fa-boxes"></i>
+                <span>Define Budget</span>
+                </a>
+            </li>
+            <!-- <div class="menu-title">Upgrade</div> -->
+            <li class="menu-item" id="addexpense">
+              <a href="http://127.0.0.1:8000/add_expense">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Expense</span>
+              </a>
+            </li>
+            <li class="menu-item" id="viewexpense">
+              <a href="http://127.0.0.1:8000/view_expense">
+                <i class="fas fa-plus-circle"></i>
+                <span>View Expense</span>
+              </a>
+            </li>
+            <!-- <div class="menu-title">Expense Reports</div> -->
+            <li class="menu-item" id="summaryreport">
+              <a href="http://127.0.0.1:8000/summary_report">
+                <i class="fas fa-cash-register"></i>
+                <span>Summary Report</span>
+              </a>
+            </li>
+            <!-- <li class="menu-item" id="salesHistoryMenu">
+                <i class="fas fa-history"></i>
+                <span>Sales History</span>
+            </li>
+            <li class="menu-item" id="inventoryHistoryMenu">
+                <i class="fas fa-history"></i>
+                <span>Inventory History</span>
+            </li> -->
+        </ul>
+    </aside>
+
+
+    <div class="user-menu">
+            <form action="http://127.0.0.1:8000/" method="get">
+                <button class="logout-btn" style="
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div id="dashboardContent">
+            <div class="page-header">
+                <div class="header-content">
+                    <h1 class="page-title">Dashboard</h1>
+                </div>
+            </div>

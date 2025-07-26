@@ -1,0 +1,26 @@
+<!-- Add Product Form -->
+        <div id="addExpenseForm" style="display: none;">
+            <h2>Add Expense</h2>
+            <form id="productForm" method="post" action="http://127.0.0.1:8000/add_expense/">
+                <input type="hidden" name="user_id" value="1">                                      <!-- Replace with actual logged-in user ID -->
+
+                <div>
+                    <label for="ProductName">Product Name:</label>
+                    <input type="text" id="ProductName" name="ProductName" required>
+                </div>
+                <div>
+                    <label for="productDesc"> Description:</label>
+                    <textarea id="Description" name="productDesc" rows="4" cols="100" required></textarea>
+                </div>
+                <div>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" required>
+                </div>
+                <div>
+                    <label for="price">Amount:</label>
+                    <input type="number" id="price" name="price" required>
+                </div>
+
+                <button type="submit" class="ok-button">Add</button>
+                 <!-- <button type="button" class="ok-button" onclick="cancelAddProduct()">Cancel</button> -->
+            </form>

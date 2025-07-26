@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from models import User
 
 import models,schemas,auth
-from database import SessionLocal,engine,Base
+from database import SessionLocal, engine, Base
 import database
 #====================================================================================================================
 # Create tables
@@ -109,3 +109,15 @@ def login_user(request:Request,
    
     return templates.TemplateResponse("dashboard.html",{"request" : request})
 #======================================================================================================================================
+# @app.get("/dashboard", response_class=HTMLResponse)
+# def display_dashboard(request: Request):
+#     return None
+
+@app.get("add_expense", response_class=HTMLResponse)
+def get_add_expense_page(request:Request):
+    return templates.TemplateResponse("add_expense.html", {"request": request})
+
+
+@app.post("dashboard/add_expense", response_class=HTMLResponse)
+def add_expense(request:Request):
+    return "Hello this is Add Expense page"
